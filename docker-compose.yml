@@ -1,0 +1,8 @@
+name: TrueBlocksConfig
+
+services:
+  core:
+    image: trueblocks/config:v0.44.0-beta
+    build: ./build/config
+    ports:
+      - "80:80"

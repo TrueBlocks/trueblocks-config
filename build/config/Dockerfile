@@ -16,8 +16,8 @@ FROM alpine:latest
 
 RUN apk --no-cache add nano
 
-COPY --from=builder /root/trueblocks-dappnode/configuration/server /app/server
-COPY --from=builder /root/trueblocks-dappnode/configuration/static /app/static
+COPY --from=builder /root/trueblocks-config/server /app/server
+COPY --from=builder /root/trueblocks-config/static /app/static
 
 EXPOSE 80
 
