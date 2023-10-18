@@ -11,6 +11,8 @@ import (
 	"path"
 	"strconv"
 	"strings"
+
+	"github.com/TrueBlocks/trueblocks-core/src/apps/chifra/pkg/file"
 )
 
 type ConfigurationItem struct {
@@ -190,14 +192,16 @@ func main() {
 	flag.StringVar(&port, "port", "80", "Port to listen on")
 	flag.StringVar(&staticDir, "static", "./static", "Directory to serve static files from")
 	flag.Parse()
-	log.Println("Will save output to", outputPath)
+
+	fmt.Println("Will save output to", outputPath)
+	fmt.Println("File /root/index.html:", file.FileExists("/root/index.html"))
 
 	http.HandleFunc("/configuration", makeConfigurationHandler(outputPath))
 
 	fs := http.FileServer(http.Dir(staticDir))
 	http.Handle("/", fs)
 
-	log.Print("Listening on ", port)
+	fmt.Print("Listening on ", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 	if err != nil {
 		log.Fatal(err)
